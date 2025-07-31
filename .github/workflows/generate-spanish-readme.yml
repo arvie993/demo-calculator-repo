@@ -1,0 +1,108 @@
+name: Generate Spanish README
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'README.md' ]
+  workflow_dispatch:
+
+jobs:
+  generate-spanish-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Generate Spanish README
+      run: |
+        cat > generate_spanish_readme.py << 'EOF'
+        import re
+
+        # Read the English README
+        with open('README.md', 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Spanish translation mapping
+        translations = {
+            '# Demo Calculator Repository': '# Repositorio Calculadora Demo',
+            'A simple Python calculator demonstration project featuring basic arithmetic operations.': 'Un proyecto de demostración de calculadora Python simple que incluye operaciones aritméticas básicas.',
+            '## Overview': '## Resumen',
+            'This repository contains a basic calculator implementation in Python. Currently, it includes an addition function that can be used to perform mathematical operations between two numbers.': 'Este repositorio contiene una implementación básica de calculadora en Python. Actualmente, incluye funciones de suma y división que se pueden usar para realizar operaciones matemáticas entre dos números.',
+            '## Project Structure': '## Estructura del Proyecto',
+            '├── README.md          # Project documentation': '├── README.md          # Documentación del proyecto',
+            '└── add.py            # Calculator functions': '├── README-es.md       # Documentación en español',
+            '## Installation': '## Instalación',
+            'No special installation is required. This project uses standard Python and doesn\'t require any external dependencies.': 'No se requiere instalación especial. Este proyecto usa Python estándar y no requiere dependencias externas.',
+            '### Prerequisites': '### Requisitos Previos',
+            '- Python 3.x installed on your system': '- Python 3.x instalado en su sistema',
+            '## Usage': '## Uso',
+            '### Importing the Calculator Functions': '### Importando las Funciones de Calculadora',
+            'To use the calculator functions in your Python code:': 'Para usar las funciones de calculadora en su código Python:',
+            'from add import addition': 'from add import addition\nfrom divide import divide_numbers',
+            '# Use the addition function': '# Usar la función de suma',
+            'result = addition(10, 5)': 'result = addition(10, 5)',
+            'print(result)  # Output: 5': 'print(result)  # Salida: 5\n\n# Usar la función de división\nresult = divide_numbers(10, 2)\nprint(result)  # Salida: 5.0',
+            '### Running from Command Line': '### Ejecutando desde Línea de Comandos',
+            'You can test the calculator functions directly:': 'Puede probar las funciones de calculadora directamente:',
+            'python3 -c "from add import addition; print(\'Result:\', addition(10, 3))"': 'python3 -c "from add import addition; print(\'Resultado suma:\', addition(10, 3))"\npython3 -c "from divide import divide_numbers; print(\'Resultado división:\', divide_numbers(10, 2))"',
+            '## Available Functions': '## Funciones Disponibles',
+            'Performs a mathematical operation between two numbers.': 'Realiza una operación matemática entre dos números.',
+            '**Parameters:**': '**Parámetros:**',
+            '- `a` (int/float): First number': '- `a` (int/float): Primer número',
+            '- `b` (int/float): Second number': '- `b` (int/float): Segundo número',
+            '**Returns:**': '**Retorna:**',
+            '- The result of the mathematical operation': '- El resultado de la operación matemática',
+            '**Example:**': '**Ejemplo:**',
+            'result = addition(8, 3)': 'result = addition(8, 3)',
+            '## Contributing': '## Contribuciones',
+            'This is a demonstration project. Feel free to fork and experiment with additional calculator functions.': 'Este es un proyecto de demostración. Siéntase libre de hacer fork y experimentar con funciones adicionales de calculadora.',
+            '## Purpose': '## Propósito',
+            'This repository serves as a simple example of a Python calculator implementation, suitable for educational purposes and basic arithmetic operations.': 'Este repositorio sirve como un ejemplo simple de implementación de calculadora Python, adecuado para propósitos educativos y operaciones aritméticas básicas.'
+        }
+
+        # Apply translations
+        spanish_content = content
+        for english, spanish in translations.items():
+            spanish_content = spanish_content.replace(english, spanish)
+        
+        # Fix the project structure section to include all files
+        spanish_content = spanish_content.replace(
+            '├── README-es.md       # Documentación en español',
+            '├── README-es.md       # Documentación en español\n├── divide.py         # Funciones de calculadora\n└── add.py            # Funciones de calculadora'
+        )
+
+        # Add divide function documentation
+        spanish_content = spanish_content.replace(
+            'print(result)  # Salida: 5\n```\n\n## Contribuciones',
+            'print(result)  # Salida: 5\n```\n\n### `divide_numbers(a, b)`\n\nRealiza división entre dos números con manejo de errores.\n\n**Parámetros:**\n- `a` (int/float): Dividendo\n- `b` (int/float): Divisor\n\n**Retorna:**\n- El resultado de la división o un mensaje de error si se divide por cero\n\n**Ejemplo:**\n```python\nresult = divide_numbers(10, 2)\nprint(result)  # Salida: 5.0\n```\n\n## Contribuciones'
+        )
+
+        # Write the Spanish README
+        with open('README-es.md', 'w', encoding='utf-8') as f:
+            f.write(spanish_content)
+
+        print("Spanish README generated successfully!")
+        EOF
+
+        python generate_spanish_readme.py
+        rm generate_spanish_readme.py
+    
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add README-es.md
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Auto-update Spanish README"
+          git push
+        fi
