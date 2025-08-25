@@ -39,7 +39,7 @@ from scientific import sin, cos, tan, log, exp, sqrt
 
 # Use the addition function
 result = addition(10, 5)
-print(result)  # Output: 5
+print(result)  # Output: 15
 
 # Use scientific functions
 print(sin(3.14159/2))  # Output: 1.0
@@ -71,7 +71,7 @@ Performs a mathematical operation between two numbers.
 **Example:**
 ```python
 result = addition(8, 3)
-print(result)  # Output: 5
+print(result)  # Output: 11
 ```
 
 ### `divide_numbers(a, b)`
