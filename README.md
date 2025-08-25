@@ -2,6 +2,8 @@
 
 A simple Python calculator demonstration project featuring basic arithmetic and scientific operations.
 
+*This project demonstrates Python calculator functionality with comprehensive documentation.*
+
 ## Overview
 
 This repository contains a basic calculator implementation in Python. It includes basic arithmetic operations and advanced scientific functions for trigonometry, logarithms, exponentials, and square roots.

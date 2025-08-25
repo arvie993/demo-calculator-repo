@@ -1,10 +1,13 @@
 # Repositorio de Calculadora Demo
 
 *Nota: Esta es una traducción automática del README en inglés. Puede contener errores de traducción.*
+*Última actualización: 2025-08-25 16:52:38 UTC*
 
 ---
 
 Un proyecto de demostración simple de calculadora en Python que incluye operaciones aritméticas básicas y científicas.
+
+*Este proyecto demuestra la funcionalidad de calculadora en Python con documentación integral.*
 
 ## Descripción General
 
@@ -126,7 +129,7 @@ El módulo `scientific.py` proporciona funciones matemáticas avanzadas:
 #### Funciones Logarítmicas
 - `log(x, base=e)` - Logaritmo de x con base dada (por defecto logaritmo natural)
 - `log10(x)` - Logaritmo base 10 de x
-- `log2(x)` - Base-2 logarithm of x
+- `log2(x)` - Logaritmo base 2 de x
 
 #### Funciones Exponenciales
 - `exp(x)` - e elevado a la potencia de x
