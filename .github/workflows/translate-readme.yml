@@ -1,0 +1,41 @@
+name: Translate README to Spanish
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'README.md'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'README.md'
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Translate README to Spanish
+      run: python .github/scripts/translate_readme.py
+      
+    - name: Commit Spanish README
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add README_es.md
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Auto-update Spanish README translation"
+          git push
+        fi
