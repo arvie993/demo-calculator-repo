@@ -57,6 +57,36 @@ You can test the calculator functions directly:
 python3 -c "from add import addition; print('Result:', addition(10, 3))"
 ```
 
+You can also use the scientific calculator from the command line:
+
+```bash
+# Natural logarithm
+python3 scientific.py log 2.718281828459045    # Output: 1.0
+
+# Logarithm with custom base
+python3 scientific.py log 8 2                  # Output: 3.0 (log base 2 of 8)
+
+# Base-10 logarithm
+python3 scientific.py log10 100                # Output: 2.0
+
+# Base-2 logarithm
+python3 scientific.py log2 8                   # Output: 3.0
+
+# Exponential
+python3 scientific.py exp 1                    # Output: 2.718281828459045
+
+# Square root
+python3 scientific.py sqrt 16                  # Output: 4.0
+
+# Power
+python3 scientific.py power 2 3                # Output: 8.0
+```
+
+To see all available operations, run:
+```bash
+python3 scientific.py
+```
+
 ## Available Functions
 
 ### `addition(a, b)`
