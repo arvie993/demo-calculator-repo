@@ -133,6 +133,15 @@ if __name__ == "__main__":
             print("Run 'python scientific.py' without arguments to see available operations")
             sys.exit(1)
 
-    except (ValueError, TypeError) as e:
+    except ValueError as e:
+        error_msg = str(e)
+        if "could not convert" in error_msg:
+            print("Error: Invalid number format. Please provide valid numeric arguments.")
+        elif "math domain error" in error_msg:
+            print("Error: Invalid mathematical operation (e.g., log of negative number or zero).")
+        else:
+            print(f"Error: {e}")
+        sys.exit(1)
+    except TypeError as e:
         print(f"Error: {e}")
         sys.exit(1)
