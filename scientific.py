@@ -133,9 +133,6 @@ if __name__ == "__main__":
             print("Run 'python scientific.py' without arguments to see available operations")
             sys.exit(1)
 
-    except ValueError as e:
-        if "could not convert" in str(e):
-            print("Error: All arguments must be valid numbers")
-        else:
-            print(f"Error: {e}")
+    except (ValueError, TypeError) as e:
+        print(f"Error: {e}")
         sys.exit(1)

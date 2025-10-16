@@ -64,31 +64,31 @@ class TestScientific(unittest.TestCase):
 
     # CLI Tests
     def test_cli_log_natural(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "log", "2.718281828459045"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "log", "2.718281828459045"], text=True)
         self.assertAlmostEqual(float(out.strip()), 1.0, places=5)
 
     def test_cli_log_with_base(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "log", "8", "2"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "log", "8", "2"], text=True)
         self.assertAlmostEqual(float(out.strip()), 3.0, places=5)
 
     def test_cli_log10(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "log10", "100"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "log10", "100"], text=True)
         self.assertAlmostEqual(float(out.strip()), 2.0, places=5)
 
     def test_cli_log2(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "log2", "8"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "log2", "8"], text=True)
         self.assertAlmostEqual(float(out.strip()), 3.0, places=5)
 
     def test_cli_exp(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "exp", "1"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "exp", "1"], text=True)
         self.assertAlmostEqual(float(out.strip()), math.e, places=5)
 
     def test_cli_sqrt(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "sqrt", "16"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "sqrt", "16"], text=True)
         self.assertEqual(float(out.strip()), 4.0)
 
     def test_cli_power(self):
-        out = subprocess.check_output([sys.executable, "scientific.py", "power", "2", "3"], text=True, cwd=str("."))
+        out = subprocess.check_output([sys.executable, "scientific.py", "power", "2", "3"], text=True)
         self.assertEqual(float(out.strip()), 8.0)
 
 
